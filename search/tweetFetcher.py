@@ -1,7 +1,8 @@
 import signal
 import threading
 import tweepy
-from s3ChunkedTweetSerializer import S3ChunkedTweetSerializer
+#from s3ChunkedTweetSerializer import S3ChunkedTweetSerializer
+from mongoTweetSerializer import MongoTweetSerializer
 
 class TweetFetcher:
 
@@ -18,7 +19,8 @@ class TweetFetcher:
 		auth.set_access_token(access_token, access_token_secret)
 		self.api = tweepy.API(auth_handler=auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-		self.serializer = S3ChunkedTweetSerializer(200, 'W205-Assignment2-RC-test')
+#		self.serializer = S3ChunkedTweetSerializer(200, 'W205-Assignment2-RC-test')
+		self.serializer = MongoTweetSerializer('twitter_db','tweets')
 
 		signal.signal(signal.SIGINT, self.interrupt)
 
@@ -32,7 +34,6 @@ class TweetFetcher:
 		exit(1)
 
 	def search(self, q):
-		self.serializer.start()
 		for tweet in tweepy.Cursor(self.api.search,q=q, count=1500).items():
 			with self._lock:
 				self.serializer.write(tweet)
