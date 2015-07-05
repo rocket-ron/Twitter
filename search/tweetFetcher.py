@@ -1,24 +1,24 @@
 import signal
 import threading
 import tweepy
-import tweetSerializer
+from s3ChunkedTweetSerializer import S3ChunkedTweetSerializer
 
 class TweetFetcher:
 
 	def __init__(self):
 		# Authentication tokens
-		consumer_key = ""
-		consumer_secret = ""
+		consumer_key = "qoHX3Oin9JbH0RPPCr8w15BnW"
+		consumer_secret = "TbJERvdspqnbMrDUaZjhwCveGdt2zUcxYumQyQHMBxI5PdeDkU"
 
-		access_token = ""
-		access_token_secret = ""
+		access_token = "2030211-QQuoYt3BdZZagXach3NWKKAUy9dKsUbYhjt76YGTCC"
+		access_token_secret = "bMhaf6g2WUKRLOZQWqr74JtYtxtSfZ0yXwHlejcV86cKE"
 
-#		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-		auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
-#		auth.set_access_token(access_token, access_token_secret)
+		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+#		auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
+		auth.set_access_token(access_token, access_token_secret)
 		self.api = tweepy.API(auth_handler=auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
-		self.serializer = tweetSerializer.TweetSerializer(200, 'W205-Assignment2-RC-both')
+		self.serializer = S3ChunkedTweetSerializer(200, 'W205-Assignment2-RC-test')
 
 		signal.signal(signal.SIGINT, self.interrupt)
 
