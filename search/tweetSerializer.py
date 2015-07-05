@@ -9,18 +9,14 @@ from boto.s3.key import Key
 
 
 # tweet serializer class from the activities document
-class TweetSerializer:
-	out = None
-	first = True
+class S3ChunkedTweetSerializer(ChunkedTweetSerializer):
+
 	conn = None
 	bucket = None
 
-	def __init__(self, tweetsPerFile, s3BucketName):
-		self._tweetsPerFile = tweetsPerFile
-		self._tweetsInFileCount = 0
-		self._count = 0
-		self._s3BucketName = s3BucketName
-		self.initS3()
+	def __init__(self, tweetsPerChunk, s3BucketName):
+		ChunkedTweetSerializer.__init__(self, tweetsPerChunk)
+		self.initPersistance(s3BucketName)
 
 
 	def start(self):
@@ -55,11 +51,14 @@ class TweetSerializer:
 		if (self._tweetsInFileCount == self._tweetsPerFile):
 			self.end()
 
-	def initS3(self):
-		if self._s3BucketName is not None:
+	def initPersistance(self, bucketName):
+		if bucketName is not None:
 			self.conn = S3Connection(host="s3-us-west-1.amazonaws.com")
-			check = self.conn.lookup(self._s3BucketName.lower())
+			check = self.conn.lookup(bucketName.lower())
 			if check is None:
 				self.bucket = self.conn.create_bucket(self._s3BucketName.lower(), location=Location.USWest)
 			else:
 				self.bucket = self.conn.get_bucket(self._s3BucketName.lower())
+
+	def PersistChunk(self):
+		return 0
