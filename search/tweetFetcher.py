@@ -14,9 +14,9 @@ class TweetFetcher:
 		access_token = "2030211-QQuoYt3BdZZagXach3NWKKAUy9dKsUbYhjt76YGTCC"
 		access_token_secret = "bMhaf6g2WUKRLOZQWqr74JtYtxtSfZ0yXwHlejcV86cKE"
 
-		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-#		auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
-		auth.set_access_token(access_token, access_token_secret)
+#		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+		auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
+#		auth.set_access_token(access_token, access_token_secret)
 		self.api = tweepy.API(auth_handler=auth,wait_on_rate_limit=True,wait_on_rate_limit_notify=True)
 
 #		self.serializer = S3ChunkedTweetSerializer(200, 'W205-Assignment2-RC-test')

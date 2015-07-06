@@ -16,6 +16,9 @@ class MongoTweetSerializer():
 		
 		self._collection.insert_one(tweet._json)
 
+	def end(self):
+		if (self._client != None):
+			self._client.close()
 
 	def initPersistance(self, database, collection):
 		self._client = MongoClient('127.0.0.1', port=27017)
