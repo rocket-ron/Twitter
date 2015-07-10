@@ -8,11 +8,11 @@ class TweetFetcher:
 
 	def __init__(self):
 		# Authentication tokens
-		consumer_key = "qoHX3Oin9JbH0RPPCr8w15BnW"
-		consumer_secret = "TbJERvdspqnbMrDUaZjhwCveGdt2zUcxYumQyQHMBxI5PdeDkU"
+		consumer_key = ""
+		consumer_secret = "T"
 
-		access_token = "2030211-QQuoYt3BdZZagXach3NWKKAUy9dKsUbYhjt76YGTCC"
-		access_token_secret = "bMhaf6g2WUKRLOZQWqr74JtYtxtSfZ0yXwHlejcV86cKE"
+		access_token = ""
+		access_token_secret = ""
 
 #		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 		auth = tweepy.AppAuthHandler(consumer_key, consumer_secret)
