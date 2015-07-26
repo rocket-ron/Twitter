@@ -2,6 +2,7 @@ import sys
 import datetime
 import urllib
 from twitterutils import tweetFetcher
+from twitterutils import apikeys
 
 # time and date formats
 xsdDatetimeFormat = "%Y-%m-%dT%H:%M:%S"
@@ -22,9 +23,11 @@ def date_partition(start,end):
    
 #   for d in date_partition(start,end):
 	
-
-q = urllib.quote(sys.argv[1])
-# q = sys.argv[1]
+if (len(sys.argv) > 1):
+	q = urllib.quote(sys.argv[1])
+else:
+	print "missing query argument, exiting...."
+	sys.exit()
 
 if (len(sys.argv) > 2):
 	if (sys.argv[2] != None):
@@ -38,5 +41,5 @@ if (len(sys.argv) > 3):
 
 print q
 
-fetcher = tweetFetcher.TweetFetcher()
+fetcher = tweetFetcher.TweetFetcher(apikeys.NONE)
 fetcher.search(q)
