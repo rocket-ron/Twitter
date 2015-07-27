@@ -5,6 +5,6 @@ where [string] is mapped to the constants, below
 '''
 
 W205_PROJECT = 'W205_PROJECT'
-W205_ASSIGNEMNT3 = 'W205_A3F'
+W205_ASSIGNMENT3 = 'W205_A3F'
 W205_PROJECT_1 = 'W205_P1'
 NONE = ''

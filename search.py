@@ -93,5 +93,5 @@ if(args.until):
 
 print "Searching for: " + q
 
-fetcher = tweetFetcher.TweetFetcher(serializer, apikeys.W205_ASSIGNEMNT3, fetchSize=fetchSize)
+fetcher = tweetFetcher.TweetFetcher(serializer, apikeys.W205_ASSIGNMENT3, fetchSize=fetchSize)
 fetcher.search(q)
