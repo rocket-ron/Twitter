@@ -37,7 +37,7 @@ class ChunkedTweetSerializer:
 		if not self.first:
 			self.out.write(",\n")
 		self.first = False
-		self.out.write(json.dumps(tweet._json).encode('utf8'))
+		self.out.write(json.dumps(tweet).encode('utf8'))
 		self._tweetsInChunkCount += 1
 		
 		# check to see if we need to roll the chunk

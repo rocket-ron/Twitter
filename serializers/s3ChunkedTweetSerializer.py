@@ -13,9 +13,6 @@ from boto.s3.key import Key
 # tweet serializer class from the activities document
 class S3ChunkedTweetSerializer(ChunkedTweetSerializer):
 
-	conn = None
-	bucket = None
-
 	def __init__(self, tweetsPerChunk, s3BucketName):
 		ChunkedTweetSerializer.__init__(self, tweetsPerChunk)
 		self.initPersistance(s3BucketName)
@@ -32,7 +29,8 @@ class S3ChunkedTweetSerializer(ChunkedTweetSerializer):
 			else:
 				self.bucket = self.conn.get_bucket(str(bucketName).lower())
 
-	def persistChunk(self):		
+	def persistChunk(self):	
+			print "writing chunk..."	
 			key = Key(self.bucket)
 			key.key = ChunkedTweetSerializer.nameChunk(self)
 			key.set_contents_from_string(self.out.getvalue())

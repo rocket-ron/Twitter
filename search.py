@@ -28,7 +28,7 @@ parser.add_argument('-t', '--track',
 					type=str,
 					required=True,
 					help='Twitter phrases to search')
-parser.add_argument('-s3','--s3url',
+parser.add_argument('-b','--bucket',
 					type=str,
 					required=False,
 					default=None,
@@ -43,6 +43,11 @@ parser.add_argument('-u','--until',
 					required=False,
 					default=None,
 					help='upper bound search date YYYY-MM-DD')
+parser.add_argument('-ck', '--chunksPerTweet',
+					type=str,
+					required=False,
+					default=100,
+					help='number of tweets per chunk for S3 buckets')
 
 args = parser.parse_args()
 
@@ -55,8 +60,8 @@ if args.database:
 	else:
 		print "MongoDB database and collection must be specified when using MongoDB server"
 		sys.exit(1)
-elif args.s3url:
-	serializer = S3ChunkedTweetSerializer(args.s3url)
+elif args.bucket:
+	serializer = S3ChunkedTweetSerializer(args.chunksPerTweet, args.bucket)
 else:
 	print "Writing tweets to console..."
 	serializer = ConsoleTweetSerializer()
