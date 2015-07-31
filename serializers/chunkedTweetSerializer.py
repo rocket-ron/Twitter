@@ -11,10 +11,11 @@ class ChunkedTweetSerializer:
 	first = True
 
 
-	def __init__(self, tweetsPerChunk):
+	def __init__(self, tweetsPerChunk, prefix):
 		self._tweetsPerChunk = tweetsPerChunk
 		self._tweetsInChunkCount = 0
 		self._count = 0
+		self._prefix = prefix
 
 
 	def start(self):
@@ -52,5 +53,8 @@ class ChunkedTweetSerializer:
 	def nameChunk(self):
 		ts = time.time()
 		timeString = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S')
-		return str(uuid.uuid4()) + "-" + timeString + '.json'
+		nameString = str(uuid.uuid4()) + "-" + timeString + '.json'
+		if prefix:
+			nameString = prefix + '-' + nameString
+		return nameString
 

@@ -13,8 +13,8 @@ from boto.s3.key import Key
 # tweet serializer class from the activities document
 class S3ChunkedTweetSerializer(ChunkedTweetSerializer):
 
-	def __init__(self, tweetsPerChunk, s3BucketName):
-		ChunkedTweetSerializer.__init__(self, tweetsPerChunk)
+	def __init__(self, tweetsPerChunk, prefix, s3BucketName):
+		ChunkedTweetSerializer.__init__(self, tweetsPerChunk, prefix)
 		self.initPersistance(s3BucketName)
 
 	def end(self):
