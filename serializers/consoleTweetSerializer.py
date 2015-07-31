@@ -1,3 +1,5 @@
+from termcolor import colored
+
 class ConsoleTweetSerializer():
 
 	def __init__(self):
@@ -5,9 +7,15 @@ class ConsoleTweetSerializer():
 
 	def write(self, tweet):
 		try:
-			print '@%s: %s' % (tweet['user']['screen_name'], tweet['text'].encode('ascii','ignore'))
+			print '@%s: %s' % (colored(tweet['user']['screen_name'],'yellow'), colored(tweet['text'].encode('ascii','ignore'), 'green'))
 		except:
 			pass
 
 	def end(self):
 		pass
+
+if __name__ == '__main__':
+	s = ConsoleTweetSerializer()
+	u ={'screen_name':'joe blow'}
+	t = {'user':u,'text':'this is a test. This is only a test...'}
+	s.write(t)
