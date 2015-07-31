@@ -9,12 +9,12 @@ import threading
 
 class TrackerListener(StreamListener):
 
-	def __init__(self, serializer):
+	def __init__(self, serializer, key):
 		signal.signal(signal.SIGINT, self.interrupt)
 		self._lock = threading.RLock()
 
 		self.serializer = serializer
-		self.auth = twitterAuth.getOAuth('')
+		self.auth = twitterAuth.getOAuth(key)
 		self.retryCount = 0
 		self.retryTime  = 1
 		self.retryMax	= 5

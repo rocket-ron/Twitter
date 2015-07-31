@@ -6,10 +6,10 @@ from twitterutils import tweetFetcher
 from serializers.mongoTweetSerializer import MongoTweetSerializer
 from serializers.s3ChunkedTweetSerializer import S3ChunkedTweetSerializer
 from serializers.consoleTweetSerializer import ConsoleTweetSerializer
-from twitterutils import apikeys
+from twitterutils.apikeys import apikeys
 import argparse  
 
-parser = argparse.ArgumentParser(description = 'Search the Twitter API')
+parser = argparse.ArgumentParser(description = 'Search the Twitter API', formatter_class=argparse.RawDescriptionHelpFormatter)
 parser.add_argument('-db','--database',
 					type=str,
 					required=False,
@@ -49,6 +49,11 @@ parser.add_argument('-ck', '--chunksPerTweet',
 					required=False,
 					default=100,
 					help='number of tweets per chunk for S3 buckets')
+parser.add_argument('-k','--key',
+					type=str,
+					required=True,
+					choices=apikeys.keys(),
+					help='the Twitter API key to use')
 
 args = parser.parse_args()
 
@@ -57,11 +62,13 @@ fetchSize = 1500
 # pick the serializer
 if args.database:
 	if (args.collection):
+		print "Writing tweets to MongoDB..."
 		serializer = MongoTweetSerializer(args.server, args.database , args.collection)
 	else:
 		print "MongoDB database and collection must be specified when using MongoDB server"
 		sys.exit(1)
 elif args.bucket:
+	print "Writing tweets to S3..."
 	serializer = S3ChunkedTweetSerializer(args.chunksPerTweet, args.bucket)
 else:
 	print "Writing tweets to console..."
@@ -101,7 +108,7 @@ print "Searching for: " + q
 
 startTime = time.time()
 
-fetcher = tweetFetcher.TweetFetcher(serializer, apikeys.W205_ASSIGNMENT3, fetchSize=fetchSize)
+fetcher = tweetFetcher.TweetFetcher(serializer, apikeys[args.key], fetchSize=fetchSize)
 fetcher.search(q)
 
 print "Search completed in " + str(time.time() - startTime) + " seconds."
