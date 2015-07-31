@@ -1,5 +1,6 @@
 import sys
 import datetime
+import time
 import urllib
 from twitterutils import tweetFetcher
 from serializers.mongoTweetSerializer import MongoTweetSerializer
@@ -98,5 +99,9 @@ if(args.until):
 
 print "Searching for: " + q
 
+startTime = time.time()
+
 fetcher = tweetFetcher.TweetFetcher(serializer, apikeys.W205_ASSIGNMENT3, fetchSize=fetchSize)
 fetcher.search(q)
+
+print "Search completed in " + str(time.time() - startTime) + " seconds."
