@@ -66,7 +66,7 @@ if args.db:
 		sys.exit(1)
 elif args.bucket:
 	"Writing tweets to S3 bucket " + args.bucket + " ..."
-	serializer = S3ChunkedTweetSerializer(args.chunks, args.bucket)
+	serializer = S3ChunkedTweetSerializer(args.chunks, args.track.replace(" ",""), args.bucket)
 else:
 	print "Writing tweets to console..."
 	serializer = ConsoleTweetSerializer()

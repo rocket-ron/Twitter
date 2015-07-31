@@ -54,7 +54,7 @@ class ChunkedTweetSerializer:
 		ts = time.time()
 		timeString = datetime.datetime.fromtimestamp(ts).strftime('%Y%m%d%H%M%S')
 		nameString = str(uuid.uuid4()) + "-" + timeString + '.json'
-		if prefix:
-			nameString = prefix + '-' + nameString
+		if self._prefix:
+			nameString = self._prefix + '-' + nameString
 		return nameString
 
