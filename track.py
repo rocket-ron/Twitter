@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from twitterutils.apikeys import apikeys
 from twitterutils.trackerListener import TrackerListener
 from serializers.mongoTweetSerializer import MongoTweetSerializer
