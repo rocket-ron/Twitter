@@ -24,6 +24,9 @@ class TweetFetcher:
 		exit(1)
 
 	def search(self, q):
-		for tweet in tweepy.Cursor(self.api.search,q=q, count=self._fetchSize).items():
-			self._serializer.write(tweet._json)
-		self._serializer.end()
+		try:
+			for tweet in tweepy.Cursor(self.api.search,q=q, count=self._fetchSize).items():
+				self._serializer.write(tweet._json)
+		finally:
+			self._serializer.end()
+
