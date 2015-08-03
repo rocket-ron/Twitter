@@ -38,7 +38,7 @@ class TweetFetcher:
 			try:
 				new_tweets = self.api.search(q=q, count=count, max_id=str(last_id - 1))
 				for tweet in new_tweets:
-					self.serializer.write(tweet._json)
+					self._serializer.write(tweet._json)
 				last_id = new_tweets[-1].id
 			except tweepy.TweepError as e:
 				print str(e)
