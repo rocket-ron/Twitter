@@ -118,7 +118,7 @@ startTime = time.time()
 fetcher = tweetFetcher.TweetFetcher(serializer, apikeys[args.key], fetchSize=fetchSize)
 if args.mode=='cursor':
 	fetcher.search(q)
-else
+else:
 	fetcher.search2(q)
 
 print "Search completed in " + str(time.time() - startTime) + " seconds."
