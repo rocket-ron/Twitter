@@ -31,7 +31,7 @@ class TweetFetcher:
 			self._serializer.end()
 
 #	thanks to Michael Kennedy for pointing this out to me as an alternative to the Tweepy Cursor
-	def search2(self, q)
+	def search2(self, q):
 		last_id = -1
 		count = 100
 		while True:
