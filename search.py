@@ -56,7 +56,12 @@ parser.add_argument('-k','--key',
 					required=True,
 					choices=apikeys.keys(),
 					help='the Twitter API key to use')
-
+parser.add_argument('-m','--mode',
+					type=str,
+					required=False,
+					choices=['cursor','nocursor'],
+					default='cursor',
+					help='the Twitter api fetch mode')
 args = parser.parse_args()
 
 fetchSize = 1500
@@ -111,6 +116,10 @@ print "Searching for: " + q
 startTime = time.time()
 
 fetcher = tweetFetcher.TweetFetcher(serializer, apikeys[args.key], fetchSize=fetchSize)
-fetcher.search(q)
+if args.mode=='cursor':
+	fetcher.search(q)
+else
+	fetcher.search2(q)
 
 print "Search completed in " + str(time.time() - startTime) + " seconds."
+

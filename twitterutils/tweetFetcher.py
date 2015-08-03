@@ -30,3 +30,20 @@ class TweetFetcher:
 		finally:
 			self._serializer.end()
 
+#	thanks to Michael Kennedy for pointing this out to me as an alternative to the Tweepy Cursor
+	def search2(self, q)
+		last_id = -1
+		count = 100
+		while True:
+			try:
+				new_tweets = api.search(q=q, count=count, max_id=str(last_id - 1))
+				for tweet in new_tweets:
+					self.serializer.write(tweet._json)
+				last_id = new_tweets[-1].id
+			except tweepy.TweepError as e:
+				print str(e)
+				break
+			finally:
+				self._serializer.end()
+
+
