@@ -36,7 +36,7 @@ class TweetFetcher:
 		count = 100
 		while True:
 			try:
-				new_tweets = api.search(q=q, count=count, max_id=str(last_id - 1))
+				new_tweets = self.api.search(q=q, count=count, max_id=str(last_id - 1))
 				for tweet in new_tweets:
 					self.serializer.write(tweet._json)
 				last_id = new_tweets[-1].id
